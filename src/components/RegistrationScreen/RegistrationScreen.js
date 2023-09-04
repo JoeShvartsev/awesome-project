@@ -15,7 +15,7 @@ const RegistrationScreen = () => {
 	const [fontsLoaded] = useFonts({
 		Roboto: require('../../../assets/fonts/Roboto.ttf'),
 	});
-	const image = require('../images/mountains.png');
+	const image = require('../../../assets/images/mountains.png');
 	const { navigate } = useNavigation();
 	const [isPasswordVisible, setPasswordVisibility] = useState(false);
 	const [inputText, setInputText] = useState('');
