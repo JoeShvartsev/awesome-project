@@ -6,6 +6,9 @@ import {
 	TouchableOpacity,
 	KeyboardAvoidingView,
 	ImageBackground,
+	Platform,
+	TouchableWithoutFeedback,
+	Keyboard,
 } from 'react-native';
 import { useNavigation } from '@react-navigation/native';
 import { useFonts } from 'expo-font';
@@ -19,35 +22,56 @@ const RegistrationScreen = () => {
 	const { navigate } = useNavigation();
 	const [isPasswordVisible, setPasswordVisibility] = useState(false);
 	const [inputText, setInputText] = useState('');
+	const [userData, setUserData] = useState({
+    email: '',
+    password: '',
+		login:'',
+  });
 
 	const handleInputChange = (text) => {
 		setInputText(text);
 	};
-	const handleRegistration = () => {};
+
+	const handleFieldChange = (text,fieldName) => {
+		setUserData({
+			...userData,
+			[fieldName]: text,
+		})
+	};
+
+	const handleRegistration = () => {
+		console.log({ userData});
+	};
 
 	return (
+		<TouchableWithoutFeedback onPress={Keyboard.dismiss}>
 		<View style={styles.wrapContainer}>
 			<ImageBackground source={image} resizeMode="cover" style={styles.image}>
 				<KeyboardAvoidingView
-				style={styles.formContainer}
-				behavior = 'padding'
-				enabled={false}
-				keyboardVerticalOffset={0}
+					style={styles.formContainer}
+					behavior={Platform.OS == "ios" ? "padding" : "height"}
+					enabled={false}
+					keyboardVerticalOffset={0}
 				>
 					<View style={styles.formContainer}>
 						<Text style={styles.header}>Реєстрація</Text>
-						<TextInput style={styles.input} placeholder="Логін" />
+						<TextInput
+							style={styles.input}
+							placeholder="Логін"
+							onChangeText={(text) => handleFieldChange( text,'login')}
+						/>
 						<TextInput
 							style={styles.input}
 							placeholder="Адреса електронної пошти"
 							keyboardType="email-address"
+							onChangeText={(text) => handleFieldChange( text,'email')}
 						/>
 						<View>
 							<TextInput
 								style={styles.input}
 								placeholder="Пароль"
 								secureTextEntry={!isPasswordVisible}
-								onChangeText={handleInputChange}
+								onChangeText={(text) => handleFieldChange( text,'password')}
 							/>
 							{inputText.length > 0 ? (
 								<TouchableOpacity
@@ -77,6 +101,8 @@ const RegistrationScreen = () => {
 				</KeyboardAvoidingView>
 			</ImageBackground>
 		</View>
+		</TouchableWithoutFeedback>
 	);
 };
+
 export default RegistrationScreen;
