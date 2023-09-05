@@ -11,8 +11,9 @@ import {
 	Keyboard,
 } from 'react-native';
 import { useNavigation } from '@react-navigation/native';
-import { styles } from '../../styles/loginStyles';
+import { styles } from './loginStyles';
 import { useFonts } from 'expo-font';
+import HomeScreen from '../HomeScreen/HomeScreen';
 
 const LoginScreen = () => {
   const [fontsLoaded] = useFonts({
@@ -34,6 +35,7 @@ const LoginScreen = () => {
   };
   const handleLogin = () => {
     console.log(userData);
+    navigate('Home')
   };
 
   return (

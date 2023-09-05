@@ -12,7 +12,7 @@ import {
 } from 'react-native';
 import { useNavigation } from '@react-navigation/native';
 import { useFonts } from 'expo-font';
-import { styles } from '../../styles/registrationStyles';
+import { styles } from './registrationStyles';
 
 const RegistrationScreen = () => {
 	const [fontsLoaded] = useFonts({
@@ -41,6 +41,7 @@ const RegistrationScreen = () => {
 
 	const handleRegistration = () => {
 		console.log({ userData});
+		navigate('Home')
 	};
 
 	return (
